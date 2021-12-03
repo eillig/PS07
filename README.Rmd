@@ -1,0 +1,34 @@
+---
+title: "Do Airplanes Have a Social Code?"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+This is a first attempt at using R studio along with Github. I created a plot based on the fivethirtyeight R package. 
+
+## Loading Pakcages
+
+```{r cars}
+library(ggplot2)
+library(tidyverse)
+library(fivethirtyeight)
+```
+
+## Visualization
+
+This is an investigation of what constitutes an airline "faux pas". Specifically is it considered rude to request to change seats in order to sit near a family member? If someone has children of their own, does that effect their opinion? 
+
+```{r pressure, echo=FALSE}
+flying_rem <- flying %>%
+  filter(children_under_18 == "TRUE" | children_under_18 == "FALSE") %>%
+  filter(switch_seats_family != "NA")
+  
+ggplot(data = flying_rem, aes(x = switch_seats_family, fill = children_under_18)) + geom_bar() + labs(title = "Is Asking to Switch Seats to be Near Family Rude?", x = "Response", y = "Count", fill = "Children Under 18")
+```
+
+This graph demonstrates that having children does not make someone more inclined to view a requested seat change as acceptabel behavior. 
